@@ -1,0 +1,35 @@
+#!/bin/bash
+
+SOURCE='{{ fedora_rsync_user }}@{{ fedora_mirror_source }}'
+DESTINATION='{{ mirror_doc_root }}/fedora/'
+
+LOCKFILE=/tmp/$(basename ${DESTINATION}).lock
+
+if [[ ! -e $LOCKFILE ]]; then
+    touch $LOCKFILE
+    # the rsync password is only used by mirrors.kernel.org
+    if [[ $SOURCE =~ {{ fedora_rsync_user }}@mirrors.kernel.org ]]; then
+        export RSYNC_PASSWORD='{{ fedora_rsync_pass }}'
+    fi
+    rsync -vaH               \
+          --human-readable   \
+          --progress         \
+          --safe-links       \
+          --delete           \
+          --delete-after     \
+          --delay-updates    \
+          --exclude '.~tmp~' \
+          --stats            \
+          --itemize-changes  \
+          ${SOURCE} ${DESTINATION}
+
+    #/usr/bin/report_mirror -c /etc/mirrormanager-client/report_mirror-fedora.conf
+
+    rm $LOCKFILE
+else
+    cat <<EOF 1>&2
+ERROR: Another rsync is already running and has the lock file
+$LOCKFILE.
+EOF
+
+fi

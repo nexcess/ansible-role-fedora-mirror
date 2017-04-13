@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: "Chris Wells"
+  description: "Fedora Mirror Role"
+  company: "Nexcess.net LLC"
+  license: "MIT"
+  min_ansible_version: "2.3"
+  platforms:
+    - name: "EL"
+      versions:
+        - "7"
+dependencies:
+  - name: "nexcess.mirror"
+    src: "git+git@github.com:nexcess/ansible-role-mirror.git"
