@@ -1,5 +1,13 @@
 ---
 
+- name: Install Mirror Manager Config
+  template:
+    src="report_mirror-fedora.conf.j2"
+    dest="{{ mirror_unix_home }}/report_mirror-fedora.conf"
+    owner="{{ mirror_unix_user }}"
+    group="{{ mirror_unix_group }}"
+    mode=0600
+
 - name: Install Update CRON
   template:
     src="fedora-mirror.j2"

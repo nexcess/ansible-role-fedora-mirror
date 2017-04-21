@@ -23,7 +23,7 @@ if [[ ! -e $LOCKFILE ]]; then
           --itemize-changes  \
           ${SOURCE} ${DESTINATION}
 
-    #/usr/bin/report_mirror -c /etc/mirrormanager-client/report_mirror-fedora.conf
+    {{ mirror_unix_home }}/report_mirror -c {{ mirror_unix_home }}/report_mirror-fedora.conf
 
     rm $LOCKFILE
 else
