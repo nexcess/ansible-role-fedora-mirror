@@ -23,6 +23,10 @@ if [[ ! -e $LOCKFILE ]]; then
           --itemize-changes  \
           ${SOURCE} ${DESTINATION}
 
+    if [[ $? -eq 0 ]]; then
+        echo `date +%s` > {{ mirror_timestamp_dir }}/fedora
+    fi
+
     {{ mirror_unix_home }}/report_mirror -c {{ mirror_unix_home }}/report_mirror-fedora.conf
 
     rm $LOCKFILE
