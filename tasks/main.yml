@@ -23,5 +23,5 @@
     hour="{{ fedora_mirror_cron_hour }}"
     user="{{ mirror_unix_user }}"
     state="present"
-    job="{{ mirror_cron_dir }}/fedora-mirror"
+    job="{{ mirror_cron_dir }}/fedora-mirror >/dev/null 2>&1"
     disabled="{{ fedora_mirror_cron_disabled }}"
