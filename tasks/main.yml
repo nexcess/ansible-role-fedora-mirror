@@ -25,3 +25,16 @@
     state="present"
     job="{{ mirror_cron_dir }}/fedora-mirror >/dev/null 2>&1"
     disabled="{{ fedora_mirror_cron_disabled }}"
+
+- stat:
+    path="{{ mirror_timestamp_dir }}/fedora"
+  register: tsfile
+
+- name: Seed Timestamp File
+  copy:
+    content="0"
+    dest="{{ mirror_timestamp_dir }}/fedora"
+    owner="{{ mirror_unix_user }}"
+    group="{{ mirror_unix_group }}"
+    mode=0644
+  when: not tsfile.stat.exists
