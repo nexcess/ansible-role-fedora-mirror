@@ -21,6 +21,7 @@ if [[ ! -e $LOCKFILE ]]; then
           --exclude '.~tmp~' \
           --stats            \
           --itemize-changes  \
+          --timeout=10800    \
           ${SOURCE} ${DESTINATION}
 
     if [[ $? -eq 0 ]]; then
