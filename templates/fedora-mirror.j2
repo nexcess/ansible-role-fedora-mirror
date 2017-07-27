@@ -11,7 +11,7 @@ if [[ ! -e $LOCKFILE ]]; then
     if [[ $SOURCE =~ {{ fedora_rsync_user }}@mirrors.kernel.org ]]; then
         export RSYNC_PASSWORD='{{ fedora_rsync_pass }}'
     fi
-    rsync -vaH               \
+    timeout 1d rsync -vaH    \
           --human-readable   \
           --progress         \
           --safe-links       \
